@@ -2,6 +2,9 @@ import type { SectionDefinition } from "./config";
 import { bannerDefinition } from "./definitions/banner";
 import { contentCardsDefinition } from "./definitions/contentCards";
 import { featureCardsDefinition } from "./definitions/featureCards";
+import { footerDefinition } from "./definitions/footer";
+import { headerDefinition } from "./definitions/header";
+import { notificationDefinition } from "./definitions/notification";
 import { slidersDefinition } from "./definitions/sliders";
 import { tabsAndPillsDefinition } from "./definitions/tabsAndPills";
 
@@ -24,4 +27,7 @@ export const sectionRegistry: SectionDefinition[] = [
   slidersDefinition,
   tabsAndPillsDefinition,
   featureCardsDefinition,
+  notificationDefinition,
+  headerDefinition,
+  footerDefinition,
 ];

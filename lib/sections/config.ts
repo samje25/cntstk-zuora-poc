@@ -15,6 +15,7 @@ import type { Section } from "./types";
  *     spreads every `fragmentName` into the `sectionsConnection` node.
  *   - `transform` — maps the raw GraphQL node to a typed `Section`.
  *   - `render` — renders the mapped `Section` to React.
+ *   - `unwrapped` — optional; drop the wrapper box (for sticky sections).
  *
  * See `components/ARCHITECTURE.md` for the end-to-end walkthrough.
  */
@@ -25,6 +26,12 @@ export type SectionDefinition = {
   fragmentName: string;
   transform: (node: RawSectionNode) => Section;
   render: (section: Section) => ReactNode;
+  /**
+   * Render without a box around the section (`display: contents` wrapper), so
+   * a `position: sticky` element pins against the page instead of being
+   * trapped in its own wrapper — e.g. the site Header.
+   */
+  unwrapped?: boolean;
 };
 
 /** A section node off `sectionsConnection.edges[].node` — `__typename` plus

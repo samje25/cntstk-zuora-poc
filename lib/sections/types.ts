@@ -227,7 +227,93 @@ export type FeatureCardsSection = BaseSection & {
   cards: FeatureCard[];
 };
 
+export type NotificationSection = BaseSection & {
+  type: "notification";
+  /** `front_end_component` dropdown value — the variant switch key. */
+  frontEndComponent: string;
+  /** Rich-text HTML, a single line (bold parts render heavier). */
+  message: string | null;
+  href: string | null;
+};
+
+export type HeaderLink = {
+  label: string;
+  href: string;
+  /** One-line summary under the title (Products menu). */
+  description: string | null;
+  /** Square SVG shown on a forest tile. */
+  icon: string | null;
+};
+
+export type HeaderLinkGroup = {
+  /** Small uppercase label; null when the CMS hides it. */
+  kicker: string | null;
+  /** Desktop grid columns for this group's links. */
+  columns: number;
+  links: HeaderLink[];
+};
+
+export type HeaderNavItem = {
+  label: string;
+  /** Desktop dropdown: link groups side by side (1 = stacked). */
+  columns: number;
+  groups: HeaderLinkGroup[];
+};
+
+export type HeaderCta = {
+  label: string;
+  href: string;
+  style: "Dark" | "Light";
+};
+
+export type HeaderSection = BaseSection & {
+  type: "header";
+  /** `front_end_component` dropdown value — the variant switch key. */
+  frontEndComponent: string;
+  logo: { url: string; alt: string } | null;
+  logoHref: string;
+  navItems: HeaderNavItem[];
+  login: { label: string; href: string } | null;
+  ctas: HeaderCta[];
+};
+
+export type FooterLink = { label: string; href: string };
+
+export type FooterColumn = {
+  heading: string;
+  /** CSS `order` of the desktop column; mobile accordions keep list order. */
+  desktopOrder: number;
+  groups: { kicker: string | null; links: FooterLink[] }[];
+};
+
+export type FooterSection = BaseSection & {
+  type: "footer";
+  /** `front_end_component` dropdown value — the variant switch key. */
+  frontEndComponent: string;
+  regionLabel: string | null;
+  /** Static region list; the entry's own locale is left out, as on zuora.com. */
+  regions: { label: string; localeCode: string; flag: string | null; current: boolean }[];
+  /** Rich-text HTML, outer <p> removed. */
+  newsletterHtml: string | null;
+  emailPlaceholder: string;
+  submitLabel: string;
+  errorMessage: string;
+  errorDetail: string;
+  successTitle: string;
+  successMessage: string;
+  socialHeading: string | null;
+  socialLinks: (FooterLink & { icon: string | null })[];
+  columns: FooterColumn[];
+  copyright: string | null;
+  legalLinks: FooterLink[];
+  cookieLabel: string | null;
+  backgroundLogo: string | null;
+};
+
 export type Section =
+  | FooterSection
+  | HeaderSection
+  | NotificationSection
   | BannerSection
   | ContentCardsSection
   | SlidersSection

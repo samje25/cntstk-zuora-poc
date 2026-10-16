@@ -31,11 +31,39 @@
   --zuora-greys-500: #6b7280;
   --zuora-clay: #b36526;
 
-  /* Height of a fixed site header above the page. Sticky UI (e.g. Tabs and
-     Pills / Scrolling Tabs) pins below it; 0 while the site has no header. */
-  --site-header-offset: 0px;
+  --zuora-greys-400-50: rgba(156, 163, 175, 0.502);
+  --zuora-greys-700: #374151;
+  --zuora-focus-blue: #173dc2;
+  --zuora-backdrop: rgba(255, 255, 255, 0.42);
+  --zuora-black-50: rgba(0, 0, 0, 0.502);
+  --zuora-black-25: #00000040;
+  --zuora-input-fill: #d9d9d91a;
+  /* zuora.com body stack — used where the live footer falls back to it. */
+  --zuora-system-font: -apple-system, "system-ui", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+
+  /* Height of the sticky site header (zuora.com `--zuora-site-unav-offset`:
+     52px, 64px from 767px, 56px from 1024px). Sticky UI (Scrolling Tabs) and
+     the Notification pill sit just below it. */
+  --site-header-offset: 52px;
   /* zuora.com's universal-nav height; sizes the Scrolling Tabs mobile bar. */
   --zuora-unav-height: 52px;
+}
+
+@media (min-width: 767px) {
+  :root {
+    --site-header-offset: 64px;
+  }
+}
+
+@media (min-width: 1024px) {
+  :root {
+    --site-header-offset: 56px;
+  }
+}
+
+/* zuora.com's 1440px step, ordered after lg (arbitrary min-[1440px] sorts before it). */
+@theme {
+  --breakpoint-wide: 90rem;
 }
 
 @theme inline {
@@ -68,5 +96,41 @@ body {
   }
   100% {
     transform: translateY(0);
+  }
+}
+
+/* Notification / Default: mobile marquee (two copies of the line; -60% loops). */
+@keyframes z-banner-marquee-loop {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-60%);
+  }
+}
+
+/* Header / Default mobile sub-menus (zuora.com unav `subnav-make-visible` /
+   `subnav-make-invisible`): slide in from the right; slide out, then leave
+   the layout. */
+@keyframes z-subnav-in {
+  0% {
+    display: block;
+    transform: translateX(100%);
+    visibility: visible;
+  }
+  100% {
+    transform: translateX(0);
+    visibility: visible;
+  }
+}
+
+@keyframes z-subnav-out {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    display: none;
+    transform: translateX(100%);
+    visibility: hidden;
   }
 }

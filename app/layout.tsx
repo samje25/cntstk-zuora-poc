@@ -37,7 +37,10 @@ const ibmPlexSerif = localFont({
 
 const foundersGroteskMono = localFont({
   variable: "--font-founders-grotesk-mono",
-  src: [{ path: "./fonts/founders-grotesk-mono-medium.woff2", weight: "500", style: "normal" }],
+  src: [
+    { path: "./fonts/founders-grotesk-mono-medium.woff2", weight: "500", style: "normal" },
+    { path: "./fonts/founders-grotesk-mono-bold.woff2", weight: "700", style: "normal" },
+  ],
   display: "swap",
   fallback: ["helvetica", "sans-serif"],
 });

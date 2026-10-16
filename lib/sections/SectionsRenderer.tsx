@@ -13,7 +13,10 @@ export const SectionsRenderer = ({ sections }: SectionsRendererProps) => {
         const config = sectionRegistry.find((s) => s.type === section.type);
         if (!config) return null;
         return (
-          <div key={section.id || `${section.type}-${index}`}>
+          <div
+            key={section.id || `${section.type}-${index}`}
+            className={config.unwrapped ? "contents" : undefined}
+          >
             {config.render(section)}
           </div>
         );
