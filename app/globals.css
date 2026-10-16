@@ -1,26 +1,72 @@
 @import "tailwindcss";
 
+/*
+ * Brand tokens. Reference these from components via
+ * `bg-[var(--brand-primary)]`, `text-[var(--text-default)]`, etc.
+ */
 :root {
   --background: #ffffff;
-  --foreground: #171717;
+  --foreground: #141414;
+
+  --brand-primary: #0066cc;
+  --brand-primary-hover: #004c99;
+  --text-default: #141414;
+  --text-muted: #6a6a6a;
+  --bg-muted: #f5f5f5;
+
+  /* Zuora brand (zuora.com) */
+  --zuora-forest: #103426;
+  --zuora-teal: #00d2b9;
+  --zuora-black: #000000;
+  --zuora-white: #ffffff;
+  --zuora-silver: #d2dee7;
+  --zuora-slate: #85929c;
+  --zuora-cloud: #f1f5f8;
+  --zuora-body: #333333;
+  --zuora-gunmetal: #3b434a;
+  --zuora-mist: #a0adb7;
+  --zuora-silver-50: rgba(210, 222, 231, 0.502);
+  --zuora-grey: #808080;
+  --zuora-greys-300: #d1d5db;
+  --zuora-greys-500: #6b7280;
+  --zuora-clay: #b36526;
+
+  /* Height of a fixed site header above the page. Sticky UI (e.g. Tabs and
+     Pills / Scrolling Tabs) pins below it; 0 while the site has no header. */
+  --site-header-offset: 0px;
+  /* zuora.com's universal-nav height; sizes the Scrolling Tabs mobile bar. */
+  --zuora-unav-height: 52px;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-roboto);
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-roboto), Arial, Helvetica, sans-serif;
+}
+
+/* Sliders / Testimonial Slider marquee (zuora.com `testimonial-scroll`). The
+   track holds the slides twice, so -50% (minus half a gap) loops seamlessly. */
+@keyframes testimonial-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-50% - var(--testimonial-gap) / 2));
+  }
+}
+
+/* Tabs and Pills / Scrolling Tabs: the tab bar drops in as it becomes sticky. */
+@keyframes sticky-drop-in {
+  0% {
+    transform: translateY(-12px);
+  }
+  100% {
+    transform: translateY(0);
+  }
 }
