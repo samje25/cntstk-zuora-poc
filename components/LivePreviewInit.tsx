@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect } from "react";
-import ContentstackLivePreview from "@contentstack/live-preview-utils";
 
 type LivePreviewInitProps = {
   apiKey: string;
@@ -89,21 +88,32 @@ export function LivePreviewInit({
   branch,
 }: LivePreviewInitProps) {
   useEffect(() => {
+    // TEMPORARILY OFF on the standalone site: opened directly, the SDK draws
+    // dotted edit outlines + "Start Editing" over every section. It still
+    // starts inside Contentstack's preview panel / Visual Builder (iframe).
+    // Set to true to bring the edit tools back on the front end.
+    const EDIT_TOOLS_OUTSIDE_CMS = false;
+    if (!EDIT_TOOLS_OUTSIDE_CMS && window.self === window.top) return;
+
     guardClipboard();
     guardUnhandledRejections();
-    ContentstackLivePreview.init({
-      ssr: true,
-      enable: true,
-      // "builder" enables the Visual Experience tab's editor tools; the SDK
-      // detects the actual window type (preview panel / builder / standalone).
-      mode: "builder",
-      editButton: { enable: true },
-      stackDetails: {
-        apiKey,
-        environment,
-        ...(branch ? { branch } : {}),
-      },
-    });
+    // Loaded here, not at module level: importing the SDK alone wires up its
+    // hover outlines and "Edit" tooltip, even without init().
+    import("@contentstack/live-preview-utils").then(({ default: ContentstackLivePreview }) =>
+      ContentstackLivePreview.init({
+        ssr: true,
+        enable: true,
+        // "builder" enables the Visual Experience tab's editor tools; the SDK
+        // detects the actual window type (preview panel / builder / standalone).
+        mode: "builder",
+        editButton: { enable: true },
+        stackDetails: {
+          apiKey,
+          environment,
+          ...(branch ? { branch } : {}),
+        },
+      })
+    );
   }, [apiKey, environment, branch]);
 
   return null;
