@@ -48,6 +48,9 @@ const foundersGroteskMono = localFont({
 export const metadata: Metadata = {
   title: "Contentstack Next.js Starter",
   description: "Next.js + Contentstack starter project",
+  // Favicons come from app/icon1.png (32), app/icon2.png (192) and
+  // app/apple-icon.png (180) — zuora.com's set; this adds its Windows tile.
+  other: { "msapplication-TileImage": "/images/ms-tile.png" },
 };
 
 export default function RootLayout({
